@@ -2,6 +2,7 @@ package com.db.employeemood.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,5 +33,20 @@ public class MoodHistoryService {
 		Collection<MoodHistory> collection = moodHistoryRepository.findAllHistory(date);
 		List<MoodHistory> moodHistory = collection.stream().collect(Collectors.toList());
 		return moodHistory;
+	}
+	
+	public List<String> getAllHashtags(){
+		List<String> hashtagsResponse = (List)moodHistoryRepository.findAllHashtags();
+		return hashtagsResponse;
+	}
+	
+	public List<String> getTopDailyHashtags(String date){
+		List<String> hashtagsResponse = (List)moodHistoryRepository.findTopDailyHashtags(date);
+		return hashtagsResponse;
+	}
+	
+	public List<MoodHistory> getMoodsByHashtag(String hashtag){
+		List<MoodHistory> moodsByHashtag = (List)moodHistoryRepository.findByHashtag(hashtag);
+		return moodsByHashtag;
 	}
 }

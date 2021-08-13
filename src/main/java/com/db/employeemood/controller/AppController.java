@@ -43,6 +43,24 @@ public class AppController {
 		return new ResponseEntity<List<MoodHistory>>(moodHistory,HttpStatus.OK);
 	}
 	
+	@GetMapping("/getAllHashtags")
+	private ResponseEntity<List<String>> getAllHashtags(){
+		List<String> hashtags = moodHistoryService.getAllHashtags();
+		return new ResponseEntity<List<String>>(hashtags,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getTopDailyHashtags/{date}")
+	private ResponseEntity<List<String>> getTopDailyHashtags(@PathVariable("date") String date){
+		List<String> hashtags = moodHistoryService.getTopDailyHashtags(date);
+		return new ResponseEntity<List<String>>(hashtags,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getMoodsByHashtag/{hashtag}")
+	private ResponseEntity<List<MoodHistory>> getMoodsByHashtag(@PathVariable("hashtag") String hashtag){
+		List<MoodHistory> hashtags = moodHistoryService.getMoodsByHashtag(hashtag);
+		return new ResponseEntity<List<MoodHistory>>(hashtags,HttpStatus.OK);
+	}
+	
 	@GetMapping("/getAllEmployee")
 	private ResponseEntity<List<Employee>> getAllEmployee(){
 		List<Employee> employeeResponse = employeeService.getAllEmployee();
