@@ -10,14 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.db.employeemood.model.Employee;
 import com.db.employeemood.model.MoodHistory;
+import com.db.employeemood.response.HashtagCount;
 import com.db.employeemood.response.PiechartData;
 import com.db.employeemood.service.EmployeeService;
 import com.db.employeemood.service.MoodHistoryService;
 
 @RestController
+@CrossOrigin
 public class AppController {
 
 	@Autowired
@@ -84,6 +87,12 @@ public class AppController {
 	private ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
 		Employee employeeResponse = employeeService.saveEmployee(employee);
 		return new ResponseEntity<Employee>(employeeResponse,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getCountByHashtag")
+	private ResponseEntity<List<HashtagCount>> getCountByHashtag() {
+		List<HashtagCount> list = moodHistoryService.getCountByHashtag();
+		return new ResponseEntity<List<HashtagCount>>(list, HttpStatus.OK);
 	}
 
 }

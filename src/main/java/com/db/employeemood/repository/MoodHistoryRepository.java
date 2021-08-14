@@ -3,6 +3,7 @@ package com.db.employeemood.repository;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.db.employeemood.model.MoodHistory;
 import com.db.employeemood.response.PiechartData;
+import com.db.employeemood.response.HashtagCount;
 
 @Repository
 public interface MoodHistoryRepository extends JpaRepository<MoodHistory, Integer> {
@@ -45,6 +47,9 @@ public interface MoodHistoryRepository extends JpaRepository<MoodHistory, Intege
 			nativeQuery = true
 			)
 	int findCountByRatingGroup(String date, int low, int high);
+	
+	@Query(value = "select hashtag as hashtag, count(*) as count  from mood_history where hashtag is NOT NULL group by hashtag", nativeQuery = true)
+	List<Object[]> getCountByHashtag();
 
 	
 }

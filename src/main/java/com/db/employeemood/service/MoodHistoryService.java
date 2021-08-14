@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.db.employeemood.model.MoodHistory;
 import com.db.employeemood.repository.MoodHistoryRepository;
 import com.db.employeemood.response.PiechartData;
+import com.db.employeemood.response.HashtagCount;
 
 @Service
 public class MoodHistoryService {
@@ -59,5 +61,22 @@ public class MoodHistoryService {
 			dataResponse.add(data);
 		}
 		return dataResponse;
+	}
+	
+	public List<HashtagCount> getCountByHashtag() {
+		List<Object[]> list = moodHistoryRepository.getCountByHashtag();
+		System.out.println(list);
+		List<HashtagCount> response = new ArrayList<>();
+		
+		list.forEach((eachData)->{
+			System.out.println(String.valueOf(eachData[0]));
+			System.out.println(String.valueOf(eachData[1]));
+		});
+		
+//		for (Object obj : list) {
+//			response.add(new HashtagCount(String.valueOf(obj.get(0)), Integer.parseInt(String.valueOf(obj[1]))));
+//		}
+
+		return response;
 	}
 }
