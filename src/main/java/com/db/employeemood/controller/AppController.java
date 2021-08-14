@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.db.employeemood.model.Employee;
 import com.db.employeemood.model.MoodHistory;
+import com.db.employeemood.response.PiechartData;
 import com.db.employeemood.service.EmployeeService;
 import com.db.employeemood.service.MoodHistoryService;
 
@@ -59,6 +60,12 @@ public class AppController {
 	private ResponseEntity<List<MoodHistory>> getMoodsByHashtag(@PathVariable("hashtag") String hashtag){
 		List<MoodHistory> hashtags = moodHistoryService.getMoodsByHashtag(hashtag);
 		return new ResponseEntity<List<MoodHistory>>(hashtags,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getCountByRatingGroup/{date}")
+	private ResponseEntity<List<PiechartData>> getCountByRatingGroup(@PathVariable("date") String date){
+		List<PiechartData> dataResponse = moodHistoryService.getCountByRatingGroup(date);
+		return new ResponseEntity<List<PiechartData>>(dataResponse,HttpStatus.OK);
 	}
 	
 	@GetMapping("/getAllEmployee")

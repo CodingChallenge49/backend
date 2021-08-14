@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.db.employeemood.model.MoodHistory;
+import com.db.employeemood.response.PiechartData;
 
 @Repository
 public interface MoodHistoryRepository extends JpaRepository<MoodHistory, Integer> {
@@ -38,6 +39,12 @@ public interface MoodHistoryRepository extends JpaRepository<MoodHistory, Intege
 	Collection<String> findTopDailyHashtags(String date);
 	
 	List<MoodHistory> findByHashtag(String hashtag);
+	
+	@Query(
+			value="select count(*) from mood_history where DATE(date_time)=?1 and rating >= ?2 and rating <= ?3",
+			nativeQuery = true
+			)
+	int findCountByRatingGroup(String date, int low, int high);
 
 	
 }

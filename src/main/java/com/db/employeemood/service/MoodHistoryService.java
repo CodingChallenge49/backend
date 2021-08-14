@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.db.employeemood.model.MoodHistory;
 import com.db.employeemood.repository.MoodHistoryRepository;
+import com.db.employeemood.response.PiechartData;
 
 @Service
 public class MoodHistoryService {
@@ -48,5 +49,15 @@ public class MoodHistoryService {
 	public List<MoodHistory> getMoodsByHashtag(String hashtag){
 		List<MoodHistory> moodsByHashtag = (List)moodHistoryRepository.findByHashtag(hashtag);
 		return moodsByHashtag;
+	}
+	
+	public List<PiechartData> getCountByRatingGroup(String date){
+		List<PiechartData> dataResponse = new ArrayList<>();
+		for(int i=1;i<10;i+=2) {
+			int numPeople = moodHistoryRepository.findCountByRatingGroup(date, i, i+1);
+			PiechartData data = new PiechartData(numPeople,String.valueOf(i)+"-"+String.valueOf(i+1));
+			dataResponse.add(data);
+		}
+		return dataResponse;
 	}
 }
