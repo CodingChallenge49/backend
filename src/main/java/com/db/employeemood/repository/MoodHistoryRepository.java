@@ -10,8 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.db.employeemood.model.MoodHistory;
-import com.db.employeemood.response.PiechartData;
-import com.db.employeemood.response.HashtagCount;
 
 @Repository
 public interface MoodHistoryRepository extends JpaRepository<MoodHistory, Integer> {

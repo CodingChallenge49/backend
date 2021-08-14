@@ -69,14 +69,10 @@ public class MoodHistoryService {
 		List<HashtagCount> response = new ArrayList<>();
 		
 		list.forEach((eachData)->{
-			System.out.println(String.valueOf(eachData[0]));
-			System.out.println(String.valueOf(eachData[1]));
+			String hashtag = String.valueOf(eachData[0]);
+			int count = Integer.parseInt(String.valueOf(eachData[1]));
+			response.add(new HashtagCount(hashtag,count));
 		});
-		
-//		for (Object obj : list) {
-//			response.add(new HashtagCount(String.valueOf(obj.get(0)), Integer.parseInt(String.valueOf(obj[1]))));
-//		}
-
 		return response;
 	}
 }
