@@ -1,10 +1,15 @@
 package com.db.employeemood.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +37,9 @@ public class AppController {
 	@PostMapping("/saveMoodHistory")
 	private ResponseEntity<MoodHistory> saveMoodHistory(@RequestBody MoodHistory moodHistory) {
 		MoodHistory moodHistoryResponse = moodHistoryService.saveMoodHistory(moodHistory);
+		System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(moodHistoryResponse.getDateTime()));
+		System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(moodHistory.getDateTime()));
+//		System.out.println(moodHistory.getDateTime());
 		return new ResponseEntity<MoodHistory>(moodHistoryResponse,HttpStatus.OK);
 	}
 	
@@ -93,6 +101,16 @@ public class AppController {
 	private ResponseEntity<List<HashtagCount>> getCountByHashtag() {
 		List<HashtagCount> list = moodHistoryService.getCountByHashtag();
 		return new ResponseEntity<List<HashtagCount>>(list, HttpStatus.OK);
+	}
+	
+	@Bean
+	public Jackson2ObjectMapperBuilderCustomizer init() {
+	    return new Jackson2ObjectMapperBuilderCustomizer() {
+	        @Override
+	        public void customize(Jackson2ObjectMapperBuilder builder) {
+	            builder.timeZone(TimeZone.getDefault());
+	        }
+	    };
 	}
 
 }

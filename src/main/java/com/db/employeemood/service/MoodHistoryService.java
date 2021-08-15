@@ -65,17 +65,11 @@ public class MoodHistoryService {
 	
 	public List<HashtagCount> getCountByHashtag() {
 		List<Object[]> list = moodHistoryRepository.getCountByHashtag();
-		System.out.println(list);
 		List<HashtagCount> response = new ArrayList<>();
 		
 		list.forEach((eachData)->{
-			System.out.println(String.valueOf(eachData[0]));
-			System.out.println(String.valueOf(eachData[1]));
+			response.add(new HashtagCount(String.valueOf(eachData[0]), Integer.parseInt(String.valueOf(eachData[1]))));
 		});
-		
-//		for (Object obj : list) {
-//			response.add(new HashtagCount(String.valueOf(obj.get(0)), Integer.parseInt(String.valueOf(obj[1]))));
-//		}
 
 		return response;
 	}

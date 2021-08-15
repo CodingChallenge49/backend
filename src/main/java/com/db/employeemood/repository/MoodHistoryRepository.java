@@ -48,7 +48,7 @@ public interface MoodHistoryRepository extends JpaRepository<MoodHistory, Intege
 			)
 	int findCountByRatingGroup(String date, int low, int high);
 	
-	@Query(value = "select hashtag as hashtag, count(*) as count  from mood_history where hashtag is NOT NULL group by hashtag", nativeQuery = true)
+	@Query(value = "select hashtag as hashtag, count(*) as count  from mood_history where hashtag is NOT NULL group by hashtag order by count(*) desc", nativeQuery = true)
 	List<Object[]> getCountByHashtag();
 
 	
