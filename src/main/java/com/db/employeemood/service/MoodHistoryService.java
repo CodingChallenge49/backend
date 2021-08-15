@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.db.employeemood.model.MoodHistory;
 import com.db.employeemood.repository.MoodHistoryRepository;
 import com.db.employeemood.response.PiechartData;
+import com.db.employeemood.response.AllHashtagsResponse;
 import com.db.employeemood.response.HashtagCount;
 
 @Service
@@ -38,9 +39,13 @@ public class MoodHistoryService {
 		return moodHistory;
 	}
 	
-	public List<String> getAllHashtags(){
+	public List<AllHashtagsResponse> getAllHashtags(){
 		List<String> hashtagsResponse = (List)moodHistoryRepository.findAllHashtags();
-		return hashtagsResponse;
+		List<AllHashtagsResponse> response = new ArrayList<>();
+		hashtagsResponse.forEach((hashtag)->{
+			response.add(new AllHashtagsResponse(hashtag));
+		});
+		return response;
 	}
 	
 	public List<String> getTopDailyHashtags(String date){

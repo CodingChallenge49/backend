@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.db.employeemood.model.Employee;
 import com.db.employeemood.model.MoodHistory;
+import com.db.employeemood.response.AllHashtagsResponse;
 import com.db.employeemood.response.HashtagCount;
 import com.db.employeemood.response.PiechartData;
 import com.db.employeemood.service.EmployeeService;
@@ -56,9 +57,9 @@ public class AppController {
 	}
 	
 	@GetMapping("/getAllHashtags")
-	private ResponseEntity<List<String>> getAllHashtags(){
-		List<String> hashtags = moodHistoryService.getAllHashtags();
-		return new ResponseEntity<List<String>>(hashtags,HttpStatus.OK);
+	private ResponseEntity<List<AllHashtagsResponse>> getAllHashtags(){
+		List<AllHashtagsResponse> hashtags = moodHistoryService.getAllHashtags();
+		return new ResponseEntity<List<AllHashtagsResponse>>(hashtags,HttpStatus.OK);
 	}
 	
 	@GetMapping("/getTopDailyHashtags/{date}")
