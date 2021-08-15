@@ -1,21 +1,5 @@
 package com.db.employeemood.response;
 
-import javax.persistence.EntityResult;
-import javax.persistence.FieldResult;
-import javax.persistence.SqlResultSetMapping;
-
-@SqlResultSetMapping(
-name = "HashtagCount",
-entities = {
-@EntityResult(
-entityClass = HashtagCount.class, // The name of the class 
-fields = {
-@FieldResult(name = "hashtag", column = "hashtag"),
-@FieldResult(name = "count", column = "count")
-}
-)
-}
-)
 public class HashtagCount {
 	private String hashtag;
 	private int count;
